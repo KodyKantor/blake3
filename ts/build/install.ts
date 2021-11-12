@@ -56,7 +56,12 @@ async function install() {
     return fallback();
   }
 
-  useNativeImport();
+  const use_native = false;
+  if (use_native) {
+    useNativeImport();
+  } else {
+    fallback();
+  }
   console.log('BLAKE3 bindings retrieved');
 }
 

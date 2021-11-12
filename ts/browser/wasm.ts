@@ -1,4 +1,4 @@
-import * as rawWasm from '../../dist/wasm/browser/blake3_js';
+import * as rawWasm from '../../dist/wasm/blake3/browser/blake3_js';
 
 let wasm: typeof rawWasm;
 

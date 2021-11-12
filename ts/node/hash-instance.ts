@@ -108,16 +108,20 @@ export class NodeHash<Reader> extends Transform implements IHasher<Buffer> {
 /**
  * A Node.js crypto-like createHash method.
  */
-export const createHash = () => new NodeHash(getWasm().create_hasher(), r => new NodeHashReader(r));
-
-/**
- * Construct a new Hasher for the keyed hash function.
- */
-export const createKeyed = (key: Buffer) =>
-  new NodeHash(getWasm().create_keyed(key), r => new NodeHashReader(r));
-
-/**
- * Construct a new Hasher for the key derivation function.
- */
-export const createDeriveKey = (context: string) =>
-  new NodeHash(getWasm().create_derive(context), r => new NodeHashReader(r));
+export const createHash = (type: String) => {
+  console.log("type is " + type);
+  const nodeHash = new NodeHash(getWasm(type).create_hasher(), (r: any) => new NodeHashReader(r));
+  return nodeHash;
+};
+//
+///**
+// * Construct a new Hasher for the keyed hash function.
+// */
+//export const createKeyed = (key: Buffer, type: String) =>
+//  new NodeHash(getWasm(type).create_keyed(key), r => new NodeHashReader(r));
+//
+///**
+// * Construct a new Hasher for the key derivation function.
+// */
+//export const createDeriveKey = (context: string, type: String) =>
+//  new NodeHash(getWasm(type).create_derive(context), r => new NodeHashReader(r));

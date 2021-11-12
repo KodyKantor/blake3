@@ -3,7 +3,7 @@ import {
   hash as rawHash,
   create_derive as createDerive,
   create_keyed as createKeyed,
-} from '../../dist/wasm/nodejs/blake3_js';
+} from '../../dist/wasm/blake3/nodejs/blake3_js';
 
 /**
  * Input used for node-based hashes.

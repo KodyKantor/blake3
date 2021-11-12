@@ -1,5 +1,5 @@
 import { provideWasm } from './esm/browser/wasm';
-import * as wasm from './dist/wasm/browser';
+import * as wasm from './dist/wasm/blake3/browser';
 
 provideWasm(wasm);
 

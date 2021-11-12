@@ -1,5 +1,5 @@
 import { provideWasm } from './esm/browser/wasm.js';
-import * as wasm from './dist/wasm/web/blake3_js.js';
+import * as wasm from './dist/wasm/blake3/web/blake3_js.js';
 import * as blake3 from './esm/browser/index.js';
 
 let cached;
