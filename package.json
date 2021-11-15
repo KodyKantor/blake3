@@ -54,7 +54,8 @@
     "source-map-support": "^0.5.16",
     "stream-buffers": "^3.0.2",
     "typescript": "^3.8.0-beta",
-    "webpack": "^4.41.5"
+    "webpack": "^4.41.5",
+    "webpack-cli": "^4.9.1"
   },
   "prettier": {
     "printWidth": 100,

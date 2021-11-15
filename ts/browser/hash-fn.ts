@@ -8,6 +8,7 @@ import { getWasm } from './wasm';
 export type HashInput = BaseHashInput | string;
 
 const textEncoder = new TextEncoder();
+const hashAlgo = "blake3";
 
 /**
  * @hidden
@@ -23,7 +24,7 @@ export function hash(
   { length = defaultHashLength }: IBaseHashOptions = {},
 ): Hash {
   const result = new Hash(length);
-  getWasm().hash(normalizeInput(input), result);
+  getWasm(hashAlgo).hash(normalizeInput(input), result);
   return result;
 }
 
@@ -37,7 +38,7 @@ export function deriveKey(
   material: HashInput,
   { length = defaultHashLength }: IBaseHashOptions = {},
 ) {
-  const derive = getWasm().create_derive(context);
+  const derive = getWasm(hashAlgo).create_derive(context);
   derive.update(normalizeInput(material));
   const result = new Hash(length);
   derive.digest(result);
@@ -56,7 +57,7 @@ export function keyedHash(
     throw new Error(`key provided to keyedHash must be 32 bytes, got ${key.length}`);
   }
 
-  const derive = getWasm().create_keyed(key);
+  const derive = getWasm(hashAlgo).create_keyed(key);
   derive.update(normalizeInput(input));
   const result = new Hash(length);
   derive.digest(result);
