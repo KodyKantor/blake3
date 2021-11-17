@@ -17,8 +17,7 @@ pub fn hash(mut cx: FunctionContext) -> JsResult<JsValue> {
         data.as_mut_slice().copy_from_slice(&dgst);
     });
 
-    Ok(output_buffer.upcast()) // TODO implement this.
-    //reader_to_buffer(&mut cx, &mut reader, length.value() as u32)
+    Ok(output_buffer.upcast())
 }
 
 pub struct Sha2Hash {

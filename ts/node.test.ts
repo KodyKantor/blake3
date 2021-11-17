@@ -17,16 +17,16 @@ function suite({
 }: typeof wasm | typeof native) {
   describe('encoding', () => {
     it('hashes a buffer', () => {
-      expect(hash(Buffer.from(inputs.hello.input))).to.deep.equal(inputs.hello.hash);
+      expect(hash(hashType, Buffer.from(inputs.hello.input))).to.deep.equal(inputs.hello.hash);
     });
 
     it('hashes a string', () => {
-      expect(hash(inputs.hello.input)).to.deep.equal(inputs.hello.hash);
+      expect(hash(hashType, inputs.hello.input)).to.deep.equal(inputs.hello.hash);
     });
 
     it('hashes an arraybuffer', () => {
       const buf = Buffer.from(inputs.hello.input);
-      expect(hash(new Uint8Array(buf).buffer)).to.deep.equal(inputs.hello.hash);
+      expect(hash(hashType, new Uint8Array(buf).buffer)).to.deep.equal(inputs.hello.hash);
     });
 
     it('customizes the output length', () => {
@@ -38,8 +38,8 @@ function suite({
 
   describe('memory-safety (#5)', () => {
     it('hash', () => {
-      const hashA = hash('hello');
-      const hashB = hash('goodbye');
+      const hashA = hash(hashType, 'hello');
+      const hashB = hash(hashType, 'goodbye');
       expect(hashA.toString('hex')).to.equal(
         'ea8f163db38682925e4491c5e58d4bb3506ef8c14eb78a86e908c5624a67200f',
       );
@@ -202,7 +202,7 @@ function suite({
         }
 
         it('hash()', () => {
-          expect(hash(input, { length: expectedHash.length / 2 }).toString('hex')).to.equal(
+          expect(hash(hashType, input, { length: expectedHash.length / 2 }).toString('hex')).to.equal(
             expectedHash,
           );
         });

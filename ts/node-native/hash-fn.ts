@@ -1,4 +1,4 @@
-import { blake3 } from './native';
+import { blake3, sha2 } from './native';
 import { HashInput } from '../node/hash-fn';
 import { IBaseHashOptions, defaultHashLength } from '../base/hash-fn';
 
@@ -21,10 +21,18 @@ export const normalizeInput = (input: HashInput, encoding?: BufferEncoding): Buf
  * Returns a blake3 hash of the input, returning the binary hash data.
  */
 export function hash(
+  type: string,
   input: HashInput,
   { length = defaultHashLength }: IBaseHashOptions = {},
 ): Buffer | string {
-  return blake3.hash(normalizeInput(input), length);
+  const m_input = normalizeInput(input);
+  if (type === "blake3") {
+    return blake3.hash(m_input, length);
+  } else if (type === "sha2") {
+    return sha2.hash(m_input, length);
+  } else {
+    return blake3.hash(m_input, length);
+  }
 }
 
 /**
