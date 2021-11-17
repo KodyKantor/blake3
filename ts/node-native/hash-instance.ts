@@ -19,7 +19,6 @@ const readerFactory = (r: INativeReader) =>
  * A Node.js crypto-like createHash method.
  */
 export const createHash = (type: String) => {
-  console.log("native type is:", type);
   if (type === "blake3") {
     return new NodeHash(new blake3.Hasher(), readerFactory);
   } else {

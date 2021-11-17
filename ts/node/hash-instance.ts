@@ -109,7 +109,6 @@ export class NodeHash<Reader> extends Transform implements IHasher<Buffer> {
  * A Node.js crypto-like createHash method.
  */
 export const createHash = (type: String) => {
-  console.log("type is " + type);
   const nodeHash = new NodeHash(getWasm(type).create_hasher(), (r: any) => new NodeHashReader(r));
   return nodeHash;
 };

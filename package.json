@@ -1,7 +1,7 @@
 {
-  "name": "blake3",
+  "name": "nv-hash",
   "version": "2.1.4",
-  "description": "BLAKE3 hashing for JavaScript: native Node bindings (where available) and WebAssembly",
+  "description": "BLAKE3, md5, sha256 hashing for JavaScript: native Node bindings (where available) and WebAssembly",
   "keywords": [
     "blake3",
     "node-addon",
@@ -22,12 +22,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/connor4312/blake3.git"
+    "url": "git+https://github.com/kodykantor/blake3.git"
   },
   "bugs": {
-    "url": "https://github.com/connor4312/blake3/issues"
+    "url": "https://github.com/kodykantor/blake3/issues"
   },
-  "homepage": "https://github.com/connor4312/blake3#readme",
+  "homepage": "https://github.com/kodykantor/blake3#readme",
   "author": "Connor Peet <connor@peet.io>",
   "license": "MIT",
   "devDependencies": {

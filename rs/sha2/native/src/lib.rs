@@ -32,7 +32,6 @@ declare_types! {
         // (not supp) 1 args = use the first arg (a Buffer) as the key
         // (not supp) 2 args = use the second arg (a String) to derive a key
         init(cx) {
-            println!("init");
             let hasher = match cx.len() {
                 0 => sha2::Sha256::new(),
                 _ => panic!("unexpected number of arguments"),
@@ -44,7 +43,6 @@ declare_types! {
         }
 
         method update(mut cx) {
-            println!("update");
             let input_buffer = cx.argument::<JsBuffer>(0)?;
             let mut this = cx.this();
 
