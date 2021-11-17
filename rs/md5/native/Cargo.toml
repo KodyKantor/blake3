@@ -1,0 +1,15 @@
+[package]
+name = "md5-js"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+name = "thread_count"
+crate-type = ["cdylib"]
+
+[build-dependencies]
+neon-build = "0.3.3"
+
+[dependencies]
+md-5 = "0.9.1"
+neon = "0.3"

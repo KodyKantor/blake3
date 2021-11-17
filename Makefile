@@ -5,16 +5,19 @@ RUST_BLAKE3_WASM_SRC = $(wildcard rs/wasm/src/blake3/*.rs)
 RUST_BLAKE3_WASM_OUT = $(patsubst %, dist/wasm/blake3/%/blake3_js_bg.wasm, $(TARGETS))
 RUST_SHA2_WASM_SRC = $(wildcard rs/wasm/src/sha2/*.rs)
 RUST_SHA2_WASM_OUT = $(patsubst %, dist/wasm/sha2/%/sha2_js_bg.wasm, $(TARGETS))
+RUST_MD5_WASM_SRC = $(wildcard rs/wasm/src/md5/*.rs)
+RUST_MD5_WASM_OUT = $(patsubst %, dist/wasm/md5/%/md5_js_bg.wasm, $(TARGETS))
 RUST_BLAKE3_NATIVE_SRC = $(wildcard rs/blake3/native/src/*.rs)
 RUST_BLAKE3_NATIVE_OUT = dist/blake3/native.node
 RUST_SHA2_NATIVE_SRC = $(wildcard rs/sha2/native/src/*.rs)
 RUST_SHA2_NATIVE_OUT = dist/sha2/native.node
+RUST_MD5_NATIVE_SRC = $(wildcard rs/md5/native/src/*.rs)
+RUST_MD5_NATIVE_OUT = dist/md5/native.node
 #TS_SRC = $(wildcard ts/*.ts)
 TS_SRC = $(wildcard ts/node/*.ts) # So the `make` command does work more often when developing node code.
 TS_OUT = dist/index.js esm/index.js
 
-all: $(RUST_SHA2_WASM_OUT) $(RUST_BLAKE3_WASM_OUT) $(RUST_BLAKE3_NATIVE_OUT) $(RUST_SHA2_NATIVE_OUT) $(TS_OUT)
-#all: $(RUST_SHA2_WASM_OUT) $(RUST_BLAKE3_WASM_OUT) $(RUST_BLAKE3_NATIVE_OUT) $(TS_OUT)
+all: $(RUST_SHA2_WASM_OUT) $(RUST_BLAKE3_WASM_OUT) $(RUST_BLAKE3_NATIVE_OUT) $(RUST_SHA2_NATIVE_OUT) $(RUST_MD5_NATIVE_OUT) $(TS_OUT)
 
 prepare:
 	npm install
@@ -48,7 +51,16 @@ endif
 	mkdir -p $@
 	mv rs/sha2/native/index.node $@
 
-$(TS_OUT): $(TS_SRC) $(RUST_BLAKE3_WASM_OUT) $(RUST_SHA2_WASM_OUT)
+$(RUST_MD5_NATIVE_OUT): $(RUST_MD5_NATIVE_SRC)
+ifeq ($(MODE), release)
+	cd rs/md5 && ../../node_modules/.bin/neon build --release
+else
+	cd rs/md5 && ../../node_modules/.bin/neon build
+endif
+	mkdir -p $@
+	mv rs/md5/native/index.node $@
+
+$(TS_OUT): $(TS_SRC) $(RUST_BLAKE3_WASM_OUT) $(RUST_SHA2_WASM_OUT) $(RUST_MD5_WASM_OUT)
 	./node_modules/.bin/tsc
 	./node_modules/.bin/tsc -p tsconfig.esm.json
 	node dist/build/add-js-extensions
@@ -63,6 +75,13 @@ endif
 
 $(RUST_SHA2_WASM_OUT): $(RUST_SHA2_WASM_SRC)
 	wasm-pack build rs/wasm/sha2 --$(MODE) -t $(word 4, $(subst /, ,$@)) -d ../../../$(dir $@)
+ifeq ($(MODE), release)
+	wasm-opt -O4 -o $@.min $@
+	mv $@.min $@
+endif
+
+$(RUST_MD5_WASM_OUT): $(RUST_MD5_WASM_SRC)
+	wasm-pack build rs/wasm/md5 --$(MODE) -t $(word 4, $(subst /, ,$@)) -d ../../../$(dir $@)
 ifeq ($(MODE), release)
 	wasm-opt -O4 -o $@.min $@
 	mv $@.min $@

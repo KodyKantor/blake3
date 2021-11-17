@@ -17,8 +17,10 @@ export interface INativeModule {
 
 const blake3: INativeModule = require('../blake3/native.node');
 const sha2: INativeModule = require('../sha2/native.node');
+const md5: INativeModule = require('../md5/native.node');
 
 export {
   blake3 as blake3,
   sha2 as sha2,
+  md5 as md5,
 };

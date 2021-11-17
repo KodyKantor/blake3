@@ -1,4 +1,4 @@
-import { blake3, sha2 } from './native';
+import { blake3, sha2, md5 } from './native';
 import { HashInput } from '../node/hash-fn';
 import { IBaseHashOptions, defaultHashLength } from '../base/hash-fn';
 
@@ -30,6 +30,8 @@ export function hash(
     return blake3.hash(m_input, length);
   } else if (type === "sha2") {
     return sha2.hash(m_input, length);
+  } else if (type === "md5") {
+    return md5.hash(m_input, 16);
   } else {
     return blake3.hash(m_input, length);
   }

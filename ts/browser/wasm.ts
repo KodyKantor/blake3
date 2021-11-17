@@ -1,5 +1,6 @@
 import * as blake from '../../dist/wasm/blake3/browser/blake3_js';
 import * as sha2 from '../../dist/wasm/sha2/browser/sha2_js';
+import * as md5 from '../../dist/wasm/md5/browser/md5_js';
 
 let wasm: typeof blake;
 
@@ -13,6 +14,8 @@ export const getWasm = (type: String) => {
   } else if (type === "sha2") {
     return require('../../dist/wasm/sha2/browser/sha2_js') as typeof sha2;
     //return typeof sha2;
+  } else if (type === "md5") {
+    return require('../../dist/wasm/md5/browser/md5_js') as typeof md5;
   }
   if (!wasm) {
     throw new Error(
