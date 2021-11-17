@@ -1,4 +1,4 @@
-import native, { INativeReader } from './native';
+import { blake3, sha2, INativeReader } from './native';
 import { NodeHash } from '../node/hash-instance';
 import { NodeHashReader } from '../node/hash-reader';
 
@@ -18,15 +18,22 @@ const readerFactory = (r: INativeReader) =>
 /**
  * A Node.js crypto-like createHash method.
  */
-export const createHash = () => new NodeHash(new native.Hasher(), readerFactory);
+export const createHash = (type: String) => {
+  console.log("native type is:", type);
+  if (type === "blake3") {
+    return new NodeHash(new blake3.Hasher(), readerFactory);
+  } else {
+    return new NodeHash(new sha2.Hasher(), readerFactory);
+  }
+}
 
 /**
  * Construct a new Hasher for the keyed hash function.
  */
-export const createKeyed = (key: Buffer) => new NodeHash(new native.Hasher(key), readerFactory);
+export const createKeyed = (key: Buffer) => new NodeHash(new blake3.Hasher(key), readerFactory);
 
 /**
  * Construct a new Hasher for the key derivation function.
  */
 export const createDeriveKey = (context: string) =>
-  new NodeHash(new native.Hasher(undefined, context), readerFactory);
+  new NodeHash(new blake3.Hasher(undefined, context), readerFactory);

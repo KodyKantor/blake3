@@ -18,12 +18,12 @@ pub fn create_hasher() -> Sha2Hash {
 }
 
 #[wasm_bindgen]
-pub fn create_keyed(key_slice: &[u8]) -> Sha2Hash {
+pub fn create_keyed(_key_slice: &[u8]) -> Sha2Hash {
     unimplemented!();
 }
 
 #[wasm_bindgen]
-pub fn create_derive(context: String) -> Sha2Hash {
+pub fn create_derive(_context: String) -> Sha2Hash {
     unimplemented!();
 }
 
@@ -53,11 +53,11 @@ pub struct HashReader {}
 
 #[wasm_bindgen]
 impl HashReader {
-    pub fn fill(&mut self, bytes: &mut [u8]) {
+    pub fn fill(&mut self, _bytes: &mut [u8]) {
         unimplemented!();
     }
 
-    pub fn set_position(&mut self, position: u64) {
+    pub fn set_position(&mut self, _position: u64) {
         unimplemented!();
     }
 }

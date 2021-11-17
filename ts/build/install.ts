@@ -56,10 +56,12 @@ async function install() {
     return fallback();
   }
 
-  const use_native = false;
+  const use_native = true;
   if (use_native) {
+    console.log("using native");
     useNativeImport();
   } else {
+    console.log("using wasm");
     fallback();
   }
   console.log('BLAKE3 bindings retrieved');
@@ -96,6 +98,7 @@ async function download(url: string): Promise<boolean> {
 }
 
 function useNativeImport() {
+  console.log("replacing wasm bindings with native bindings");
   const indexFile = join(__dirname, '..', 'index.js');
   const contents = readFileSync(indexFile, 'utf-8');
   writeFileSync(indexFile, contents.replace('"./node"', '"./node-native"'));

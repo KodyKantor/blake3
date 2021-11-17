@@ -15,6 +15,10 @@ export interface INativeModule {
   hash(input: Buffer, length: number): Buffer;
 }
 
-const native: INativeModule = require('../native.node');
+const blake3: INativeModule = require('../blake3/native.node');
+const sha2: INativeModule = require('../sha2/native.node');
 
-export default native;
+export {
+  blake3 as blake3,
+  sha2 as sha2,
+};

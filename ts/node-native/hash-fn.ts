@@ -1,4 +1,4 @@
-import native from './native';
+import { blake3 } from './native';
 import { HashInput } from '../node/hash-fn';
 import { IBaseHashOptions, defaultHashLength } from '../base/hash-fn';
 
@@ -24,7 +24,7 @@ export function hash(
   input: HashInput,
   { length = defaultHashLength }: IBaseHashOptions = {},
 ): Buffer | string {
-  return native.hash(normalizeInput(input), length);
+  return blake3.hash(normalizeInput(input), length);
 }
 
 /**
@@ -37,7 +37,7 @@ export function deriveKey(
   material: HashInput,
   { length = defaultHashLength }: IBaseHashOptions = {},
 ) {
-  const hasher = new native.Hasher(undefined, context);
+  const hasher = new blake3.Hasher(undefined, context);
   hasher.update(normalizeInput(material));
   const result = Buffer.alloc(length);
   hasher.digest(result);
@@ -52,7 +52,7 @@ export function keyedHash(
   input: HashInput,
   { length = defaultHashLength }: IBaseHashOptions = {},
 ) {
-  const hasher = new native.Hasher(key);
+  const hasher = new blake3.Hasher(key);
   hasher.update(normalizeInput(input));
   const result = Buffer.alloc(length);
   hasher.digest(result);
