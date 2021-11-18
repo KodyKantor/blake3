@@ -81,6 +81,10 @@ declare_types! {
             let this = cx.this();
             Ok(JsReader::new(&mut cx, vec![this])?.upcast())
         }
+
+        method algo(mut cx) {
+            Ok(cx.string("md5").upcast())
+        }
     }
 }
 

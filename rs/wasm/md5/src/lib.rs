@@ -46,6 +46,10 @@ impl Md5Hash {
         let dgst = self.hasher.clone().finalize();
         out.copy_from_slice(&dgst);
     }
+
+    pub fn algo(&mut self) -> String {
+        "md5".to_owned()
+    }
 }
 
 #[wasm_bindgen]

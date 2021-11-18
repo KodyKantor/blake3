@@ -53,6 +53,10 @@ impl Blake3Hash {
         let mut reader = self.hasher.finalize_xof();
         reader.fill(out);
     }
+
+    pub fn algo(&mut self) -> String {
+        "blake3".to_owned()
+    }
 }
 
 #[wasm_bindgen]

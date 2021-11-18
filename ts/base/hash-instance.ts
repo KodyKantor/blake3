@@ -47,6 +47,7 @@ export interface IInternalHash<Reader> {
   reader(): Reader;
   update(bytes: Uint8Array): void;
   digest(into: Uint8Array): void;
+  algo(): String;
 }
 
 export interface IHasherDigestOptions extends IBaseHashOptions {
@@ -86,6 +87,10 @@ export class BaseHash<Binary extends Uint8Array, InternalReader, Reader extends 
   public digest({ length = defaultHashLength, dispose = true }: IHasherDigestOptions = {}): Binary {
     if (!this.hash) {
       throw new Error('Cannot call digest() after dipose() has been called');
+    }
+
+    if (this.hash.algo() === "md5") {
+      length = 16;
     }
 
     const digested = this.alloc(length);
