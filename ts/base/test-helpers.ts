@@ -5,18 +5,32 @@ export const hello48 = Buffer.from(
   'hex',
 );
 
+//export interface TestInput {
+//  input: any;
+//  blake3: Buffer;
+//}
+//export interface TestStruct {
+//  [key: string]: TestInput;
+//}
+
 export const inputs = {
+//export const inputs: { [name: string]: { input: string, blake3: Buffer } } = {
+//export const inputs: TestStruct = {
   large: {
     input: readFileSync(__dirname + '/../../test-input.txt', 'utf-8'),
-    hash: Buffer.from('2a2cf9cbc9f8d48f7d089273bc2d796a3cd0677b64234dab0c59e6e29d6a7164', 'hex'),
+    blake3: Buffer.from('2a2cf9cbc9f8d48f7d089273bc2d796a3cd0677b64234dab0c59e6e29d6a7164', 'hex'),
+    md5: Buffer.from('6ca9ab1c6cf240017839a1d689b1a398', 'hex'),
   },
   hello: {
     input: 'hello',
-    hash: Buffer.from('ea8f163db38682925e4491c5e58d4bb3506ef8c14eb78a86e908c5624a67200f', 'hex'),
+    blake3: Buffer.from('ea8f163db38682925e4491c5e58d4bb3506ef8c14eb78a86e908c5624a67200f', 'hex'),
+    md5: Buffer.from('5d41402abc4b2a76b9719d911017c592', 'hex'),
   },
   goodbye: {
     input: 'goodbye',
-    hash: Buffer.from('f94a694227c5f31a07551908ad5fb252f5f0964030df5f2f200adedfae4d9b69', 'hex'),
+    blake3: Buffer.from('f94a694227c5f31a07551908ad5fb252f5f0964030df5f2f200adedfae4d9b69', 'hex'),
+    md5: Buffer.from('69faab6268350295550de7d587bc323d', 'hex'),
+
   },
 };
 

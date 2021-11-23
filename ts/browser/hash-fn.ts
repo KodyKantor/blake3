@@ -20,11 +20,14 @@ export const normalizeInput = (input: HashInput): Uint8Array =>
  * Returns a blake3 hash of the input.
  */
 export function hash(
+  algo: string,
   input: HashInput,
   { length = defaultHashLength }: IBaseHashOptions = {},
 ): Hash {
   const result = new Hash(length);
-  getWasm(hashAlgo).hash(normalizeInput(input), result);
+  console.log("input type:", typeof input);
+  console.log("algo:", algo);
+  getWasm(algo).hash(normalizeInput(input), result);
   return result;
 }
 

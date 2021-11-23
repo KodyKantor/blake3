@@ -7,7 +7,6 @@ pub fn hash(data: &[u8], out: &mut [u8]) {
     hasher.update(data);
     let dgst = hasher.finalize();
     out.copy_from_slice(&dgst);
-
 }
 
 #[wasm_bindgen]

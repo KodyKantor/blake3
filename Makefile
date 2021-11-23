@@ -13,8 +13,8 @@ RUST_SHA2_NATIVE_SRC = $(wildcard rs/sha2/native/src/*.rs)
 RUST_SHA2_NATIVE_OUT = dist/sha2/native.node
 RUST_MD5_NATIVE_SRC = $(wildcard rs/md5/native/src/*.rs)
 RUST_MD5_NATIVE_OUT = dist/md5/native.node
-#TS_SRC = $(wildcard ts/*.ts)
-TS_SRC = $(wildcard ts/node/*.ts) # So the `make` command does work more often when developing node code.
+TS_SRC = $(wildcard ts/*.ts)
+#TS_SRC = $(wildcard ts/node/*.ts) # So the `make` command does work more often when developing node code.
 TS_OUT = dist/index.js esm/index.js
 
 all: $(RUST_SHA2_WASM_OUT) $(RUST_BLAKE3_WASM_OUT) $(RUST_BLAKE3_NATIVE_OUT) $(RUST_SHA2_NATIVE_OUT) $(RUST_MD5_NATIVE_OUT) $(TS_OUT)

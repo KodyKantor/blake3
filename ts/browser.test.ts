@@ -134,7 +134,7 @@ describe('browser', () => {
 function runTests(opts: { page: Page }) {
   it('hashes a string', async () => {
     const result = await opts.page.evaluate('blake3.hash(inputs.large.input).toString("hex")');
-    expect(result).to.equal(inputs.large.hash.toString('hex'));
+    expect(result).to.equal(inputs.large["blake3"].toString('hex'));
   });
 
   describe('input encoding', () => {
@@ -143,27 +143,27 @@ function runTests(opts: { page: Page }) {
       const result = await opts.page.evaluate(
         `blake3.hash(new Uint8Array([${contents.join(',')}])).toString("hex")`,
       );
-      expect(result).to.equal(inputs.hello.hash.toString('hex'));
+      expect(result).to.equal(inputs.hello["blake3"].toString('hex'));
     });
 
     it('hashes a string', async () => {
       const result = await opts.page.evaluate('blake3.hash(inputs.large.input).toString("hex")');
-      expect(result).to.equal(inputs.large.hash.toString('hex'));
+      expect(result).to.equal(inputs.large["blake3"].toString('hex'));
     });
 
     it('customizes output length', async () => {
       const result = await opts.page.evaluate(
         'blake3.hash(inputs.hello.input, { length: 16 }).toString("hex")',
       );
-      expect(result).to.equal(inputs.hello.hash.slice(0, 16).toString('hex'));
+      expect(result).to.equal(inputs.hello["blake3"].slice(0, 16).toString('hex'));
     });
   });
 
   describe('output encoding', () => {
     const tcases = [
-      { encoding: 'hex', expected: inputs.hello.hash.toString('hex') },
-      { encoding: 'base64', expected: inputs.hello.hash.toString('base64') },
-      { encoding: 'utf8', expected: inputs.hello.hash.toString('utf8') },
+      { encoding: 'hex', expected: inputs.hello["blake3"].toString('hex') },
+      { encoding: 'base64', expected: inputs.hello["blake3"].toString('base64') },
+      { encoding: 'utf8', expected: inputs.hello["blake3"].toString('utf8') },
     ];
 
     tcases.forEach(({ encoding, expected }) =>
@@ -184,7 +184,7 @@ function runTests(opts: { page: Page }) {
       for (let i = 0; i < actual.length; i++) {
         actual[i] = result[i]; // it comes as a plain object, we need to convert it to a buffer
       }
-      expect(actual).to.deep.equal(inputs.hello.hash);
+      expect(actual).to.deep.equal(inputs.hello["blake3"]);
     });
   });
 
@@ -198,7 +198,7 @@ function runTests(opts: { page: Page }) {
         return hash.digest('hex');
       })()`);
 
-      expect(result).to.equal(inputs.hello.hash.toString('hex'));
+      expect(result).to.equal(inputs.hello["blake3"].toString('hex'));
     });
 
     it('customizes the output length', async () => {
@@ -208,7 +208,7 @@ function runTests(opts: { page: Page }) {
         return hash.digest('hex', { length: 16 });
       })()`);
 
-      expect(result).to.equal(inputs.hello.hash.slice(0, 16).toString('hex'));
+      expect(result).to.equal(inputs.hello["blake3"].slice(0, 16).toString('hex'));
     });
 
     it('returns a hash instance from digest', async () => {
@@ -220,7 +220,7 @@ function runTests(opts: { page: Page }) {
         return hash.digest('hex');
       })()`);
 
-      expect(result).to.equal(inputs.hello.hash.toString('hex'));
+      expect(result).to.equal(inputs.hello["blake3"].toString('hex'));
     });
   });
 
@@ -239,8 +239,8 @@ function runTests(opts: { page: Page }) {
 
       expect(result).to.deep.equal([
         hello48.toString('hex'),
-        inputs.hello.hash.toString('hex'),
-        inputs.hello.hash.toString('hex'),
+        inputs.hello["blake3"].toString('hex'),
+        inputs.hello["blake3"].toString('hex'),
       ]);
     });
   });
